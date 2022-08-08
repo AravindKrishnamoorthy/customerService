@@ -10,7 +10,6 @@ public class CSHistory {
 	private String articleID;
 	private String status;
 	private String status_Timestamp;
-	private String statusCode;
 	private String courierEvents;
 	private String Updated_Timestamp;
 	private String location;
@@ -27,17 +26,15 @@ public class CSHistory {
 		articleID = (String)obj[1];
 		status = (String)obj[2];
 		status_Timestamp = (String)obj[3];
-		statusCode = (String)obj[4];
-		courierEvents = (String)obj[5];
-		Updated_Timestamp = (String)obj[6];
-		location = (String)obj[7];
-		handling = (String)obj[8];
-		comments = (String)obj[9];
-		created_Timestamp = (String)obj[10];
-		broker_Name = (String)obj[11];
-		dateAllocated = (String)obj[12];
-		carrier = (String)obj[13];
-		systemStatus = (String)obj[14];
+		Updated_Timestamp = (String)obj[4];
+		location = (String)obj[5];
+		handling = (String)obj[6];
+		comments = (String)obj[7];
+		created_Timestamp = (String)obj[8];
+		broker_Name = (String)obj[9];
+		dateAllocated = (String)obj[10];
+		carrier = (String)obj[11];
+		systemStatus = (String)obj[12];
 	}
 
 	public String getReference_number() {
@@ -70,14 +67,6 @@ public class CSHistory {
 
 	public void setStatus_Timestamp(String status_Timestamp) {
 		this.status_Timestamp = status_Timestamp;
-	}
-
-	public String getStatusCode() {
-		return statusCode;
-	}
-
-	public void setStatusCode(String statusCode) {
-		this.statusCode = statusCode;
 	}
 
 	public String getCourierEvents() {
