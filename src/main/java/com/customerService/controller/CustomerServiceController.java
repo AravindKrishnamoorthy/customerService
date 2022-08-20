@@ -15,6 +15,7 @@ import com.customerService.model.CSHistory;
 import com.customerService.model.CustomerTrackRequest;
 import com.customerService.model.UserDetails;
 import com.customerService.model.UserMessage;
+import com.customerService.model.UsersData;
 import com.customerService.service.ICSSystemService;
 
 @RestController
@@ -28,14 +29,14 @@ public class CustomerServiceController {
 	private ICSSystemService csService;
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/login")
-	public UserDetails login(@RequestParam("userName") String userName, @RequestParam("passWord") String passWord) {
-		UserDetails userDetails = csService.login(userName, passWord);
+	public List<UsersData> login(@RequestParam("userName") String userName, @RequestParam("passWord") String passWord) {
+		List<UsersData> userDetails = csService.login(userName, passWord);
 		return userDetails;
     }
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/csDetails")
-	public List<CSTracker> csDetails(@RequestParam(name="status", required=false) String status) {
-		List<CSTracker> csTrack = csService.csDetails(status);
+	public List<CSTracker> csDetails(@RequestParam(name="status", required=false) String status, @RequestParam(name="reference_number", required=false) String reference_number) {
+		List<CSTracker> csTrack = csService.csDetails(status, reference_number);
 		return csTrack;
     }
 	
@@ -53,8 +54,8 @@ public class CustomerServiceController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/csDetailsStatus")
-	public List<CSHistory> csDetailsStatusList(@RequestParam("status") String status) {
-		List<CSHistory> csTrackHist = csService.csDetailsStatusList(status);
+	public List<CSHistory> csDetailsStatusList(@RequestParam("status") String status, @RequestParam(name="reference_number", required=false) String reference_number) {
+		List<CSHistory> csTrackHist = csService.csDetailsStatusList(status, reference_number);
 		return csTrackHist;
 	}
 

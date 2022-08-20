@@ -2,6 +2,7 @@ package com.customerService.daoImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -10,10 +11,10 @@ import org.springframework.stereotype.Repository;
 import com.customerService.dao.ICSSystemDao;
 import com.customerService.entity.CSTracker;
 import com.customerService.entity.CSTracker_History;
-import com.customerService.entity.User;
 import com.customerService.model.CSHistory;
 import com.customerService.model.CustomerTrackRequest;
 import com.customerService.model.UserMessage;
+import com.customerService.model.UsersData;
 import com.customerService.repository.CSTrackerRepository;
 import com.customerService.repository.CSTracker_HistoryRepository;
 import com.customerService.repository.UserRepository;
@@ -34,9 +35,11 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 	@Autowired
 	CSTracker_HistoryRepository csTrackerHistoryRepository;
 	
-	public User login(String userName, String passWord) {
-		User userDaetils = userRepository.fetchUserDetails(userName, passWord);
-		return userDaetils;
+	public List<UsersData> login(String userName, String passWord) {
+		List<UsersData> userData = new ArrayList<UsersData>();
+		List<Object[]>  userDaetils = userRepository.fetchUserDetails(userName, passWord);
+		userDaetils.forEach(obj -> userData.add(new UsersData(obj)));
+		return userData;
 	}
 
 	@Override
@@ -47,12 +50,17 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 
 	@SuppressWarnings("null")
 	@Override
-	public List<CSTracker> csDetails(String status) {
+	public List<CSTracker> csDetails(String status, String reference_number) {
 		List<CSTracker> csTrackerDetails = null;
 		List<CSTracker> csTrackerDetailsNew = null;
 //		User userDaetils = userRepository.fetchUserDetailsUsingUserId();
+		String[] reference_numbers = Arrays.stream(reference_number.split(",")).map(String::trim).toArray(String[]::new);
 		if(status != null && !status.isBlank()) {
-			csTrackerDetails = csTrackerRepository.fetchCSTrackDetailsByStatus(status);
+			if(reference_number != null && !reference_number.isBlank()) {
+				csTrackerDetails = csTrackerRepository.fetchCSTrackDetailsByStatusRefNum(status, reference_numbers);
+			}else {
+				csTrackerDetails = csTrackerRepository.fetchCSTrackDetailsByStatus(status);
+			}
 			csTrackerDetailsNew = new ArrayList<CSTracker>();
 			for(CSTracker csTracker:csTrackerDetails) {
 				CSTracker csTrack = new CSTracker();
@@ -82,7 +90,11 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 				csTrackerDetailsNew.add(csTrack);
 			}
 		}else {
-			csTrackerDetails = csTrackerRepository.fetchCSTrackDetails();
+			if(reference_number != null && !reference_number.isBlank()) {
+				csTrackerDetails = csTrackerRepository.fetchCSTrackDetailsByRefNum(reference_numbers);
+			}else {
+				csTrackerDetails = csTrackerRepository.fetchCSTrackDetails();
+			}
 			csTrackerDetailsNew = new ArrayList<CSTracker>();
 			for(CSTracker csTracker:csTrackerDetails) {
 				CSTracker csTrack = new CSTracker();
@@ -160,9 +172,15 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 	}
 
 	@Override
-	public List<CSHistory> csDetailsStatusList(String status) {
+	public List<CSHistory> csDetailsStatusList(String status, String reference_number) {
 		List<CSHistory> csHistoryDataStatus = new ArrayList<CSHistory>();
-		List<Object[]> csTrackerHistDetails = csTrackerHistoryRepository.fetchCSTrackHistoryStatusDetails(status);
+		List<Object[]> csTrackerHistDetails = null;
+		String[] reference_numbers = Arrays.stream(reference_number.split(",")).map(String::trim).toArray(String[]::new);
+		if(reference_number != null && !reference_number.isBlank()) {
+			csTrackerHistDetails = csTrackerHistoryRepository.fetchCSTrackHistoryStatusDetailsWithRefNum(status, reference_numbers);
+		}else {
+			csTrackerHistDetails = csTrackerHistoryRepository.fetchCSTrackHistoryStatusDetails(status);
+		}
 		csTrackerHistDetails.forEach(obj -> csHistoryDataStatus.add(new CSHistory(obj)));
 		return csHistoryDataStatus;
 	}

@@ -11,7 +11,7 @@
 	
 	<groupId>com.d2z</groupId>
 	<artifactId>customerService</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>customerService</name>
 	<description>Customer Service System</description>
 	
