@@ -35,13 +35,18 @@ public interface CSTracker_HistoryRepository extends CrudRepository<CSTracker_Hi
 
 	@Query(nativeQuery = true, value= "SELECT reference_number, articleID, status, status_Timestamp, "
 			+ " Updated_Timestamp, null as location, handling, comments, created_Timestamp, broker_Name, dateAllocated, carrier, "
-			+ "	systemStatus FROM CSTracker t where t.systemStatus = :status order by t.Updated_Timestamp desc")
-	List<Object[]> fetchCSTrackHistoryStatusDetails(@Param("status") String status);
+			+ "	systemStatus FROM CSTracker t where t.systemStatus = :status "
+			+ " and t.broker_Name in (:brokerNames) order by t.Updated_Timestamp desc")
+	List<Object[]> fetchCSTrackHistoryStatusDetails(@Param("status") String status, 
+				@Param("brokerNames") String[] brokerNames);
 
 	
 	@Query(nativeQuery = true, value= "SELECT reference_number, articleID, status, status_Timestamp, "
 			+ " Updated_Timestamp, null as location, handling, comments, created_Timestamp, broker_Name, dateAllocated, carrier, "
-			+ "	systemStatus FROM CSTracker t where t.systemStatus = :status and t.reference_number in (:reference_numberVal) order by t.Updated_Timestamp desc")
-	List<Object[]> fetchCSTrackHistoryStatusDetailsWithRefNum(@Param("status") String status, @Param("reference_numberVal") String[] reference_numberVal);
+			+ "	systemStatus FROM CSTracker t where t.systemStatus = :status and t.reference_number in (:reference_numberVal) "
+			+ " and t.broker_Name in (:brokerNames) order by t.Updated_Timestamp desc")
+	List<Object[]> fetchCSTrackHistoryStatusDetailsWithRefNum(@Param("status") String status, 
+			@Param("reference_numberVal") String[] reference_numberVal, @Param("brokerNames") String[] brokerNames);
 
+	
 }

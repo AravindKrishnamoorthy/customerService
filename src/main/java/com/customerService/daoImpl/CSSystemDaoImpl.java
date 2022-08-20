@@ -50,16 +50,17 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 
 	@SuppressWarnings("null")
 	@Override
-	public List<CSTracker> csDetails(String status, String reference_number) {
+	public List<CSTracker> csDetails(String status, String reference_number, String brokerName) {
 		List<CSTracker> csTrackerDetails = null;
 		List<CSTracker> csTrackerDetailsNew = null;
 //		User userDaetils = userRepository.fetchUserDetailsUsingUserId();
 		String[] reference_numbers = Arrays.stream(reference_number.split(",")).map(String::trim).toArray(String[]::new);
+		String[] brokerNames = Arrays.stream(brokerName.split(",")).map(String::trim).toArray(String[]::new);
 		if(status != null && !status.isBlank()) {
 			if(reference_number != null && !reference_number.isBlank()) {
-				csTrackerDetails = csTrackerRepository.fetchCSTrackDetailsByStatusRefNum(status, reference_numbers);
+				csTrackerDetails = csTrackerRepository.fetchCSTrackDetailsByStatusRefNum(status, reference_numbers, brokerNames);
 			}else {
-				csTrackerDetails = csTrackerRepository.fetchCSTrackDetailsByStatus(status);
+				csTrackerDetails = csTrackerRepository.fetchCSTrackDetailsByStatus(status, brokerNames);
 			}
 			csTrackerDetailsNew = new ArrayList<CSTracker>();
 			for(CSTracker csTracker:csTrackerDetails) {
@@ -91,9 +92,9 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 			}
 		}else {
 			if(reference_number != null && !reference_number.isBlank()) {
-				csTrackerDetails = csTrackerRepository.fetchCSTrackDetailsByRefNum(reference_numbers);
+				csTrackerDetails = csTrackerRepository.fetchCSTrackDetailsByRefNum(reference_numbers, brokerNames);
 			}else {
-				csTrackerDetails = csTrackerRepository.fetchCSTrackDetails();
+				csTrackerDetails = csTrackerRepository.fetchCSTrackDetails(brokerNames);
 			}
 			csTrackerDetailsNew = new ArrayList<CSTracker>();
 			for(CSTracker csTracker:csTrackerDetails) {
@@ -172,14 +173,15 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 	}
 
 	@Override
-	public List<CSHistory> csDetailsStatusList(String status, String reference_number) {
+	public List<CSHistory> csDetailsStatusList(String status, String reference_number, String brokerName) {
 		List<CSHistory> csHistoryDataStatus = new ArrayList<CSHistory>();
 		List<Object[]> csTrackerHistDetails = null;
 		String[] reference_numbers = Arrays.stream(reference_number.split(",")).map(String::trim).toArray(String[]::new);
+		String[] brokerNames = Arrays.stream(brokerName.split(",")).map(String::trim).toArray(String[]::new);
 		if(reference_number != null && !reference_number.isBlank()) {
-			csTrackerHistDetails = csTrackerHistoryRepository.fetchCSTrackHistoryStatusDetailsWithRefNum(status, reference_numbers);
+			csTrackerHistDetails = csTrackerHistoryRepository.fetchCSTrackHistoryStatusDetailsWithRefNum(status, reference_numbers, brokerNames);
 		}else {
-			csTrackerHistDetails = csTrackerHistoryRepository.fetchCSTrackHistoryStatusDetails(status);
+			csTrackerHistDetails = csTrackerHistoryRepository.fetchCSTrackHistoryStatusDetails(status, brokerNames);
 		}
 		csTrackerHistDetails.forEach(obj -> csHistoryDataStatus.add(new CSHistory(obj)));
 		return csHistoryDataStatus;

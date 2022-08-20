@@ -43,8 +43,8 @@ public class CSSystemServiceImpl implements ICSSystemService{
 	}
 
 	@Override
-	public List<CSTracker> csDetails(String status, String reference_number) {
-		List<CSTracker> csTrackerDetails = csDao.csDetails(status, reference_number);
+	public List<CSTracker> csDetails(String status, String reference_number, String brokerName) {
+		List<CSTracker> csTrackerDetails = csDao.csDetails(status, reference_number, brokerName);
 		return csTrackerDetails;
 	}
 
@@ -61,8 +61,8 @@ public class CSSystemServiceImpl implements ICSSystemService{
 	}
 
 	@Override
-	public List<CSHistory> csDetailsStatusList(String status, String reference_number) {
-		List<CSHistory> csTrackerDetailsStatus = csDao.csDetailsStatusList(status, reference_number);
+	public List<CSHistory> csDetailsStatusList(String status, String reference_number, String brokerName) {
+		List<CSHistory> csTrackerDetailsStatus = csDao.csDetailsStatusList(status, reference_number, brokerName);
 		return csTrackerDetailsStatus;
 	}
 }

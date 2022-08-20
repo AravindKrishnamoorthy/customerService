@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.customerService.entity.CSTracker;
 import com.customerService.model.CSHistory;
 import com.customerService.model.CustomerTrackRequest;
-import com.customerService.model.UserDetails;
 import com.customerService.model.UserMessage;
 import com.customerService.model.UsersData;
 import com.customerService.service.ICSSystemService;
@@ -35,8 +34,11 @@ public class CustomerServiceController {
     }
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/csDetails")
-	public List<CSTracker> csDetails(@RequestParam(name="status", required=false) String status, @RequestParam(name="reference_number", required=false) String reference_number) {
-		List<CSTracker> csTrack = csService.csDetails(status, reference_number);
+	public List<CSTracker> csDetails(@RequestParam(name="status", required=false) String status, 
+			@RequestParam(name="reference_number", required=false) String reference_number,
+			@RequestParam(name="brokerName", required=true) String brokerName
+			) {
+		List<CSTracker> csTrack = csService.csDetails(status, reference_number, brokerName);
 		return csTrack;
     }
 	
@@ -54,8 +56,10 @@ public class CustomerServiceController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/csDetailsStatus")
-	public List<CSHistory> csDetailsStatusList(@RequestParam("status") String status, @RequestParam(name="reference_number", required=false) String reference_number) {
-		List<CSHistory> csTrackHist = csService.csDetailsStatusList(status, reference_number);
+	public List<CSHistory> csDetailsStatusList(@RequestParam("status") String status, 
+			@RequestParam(name="reference_number", required=false) String reference_number,
+			@RequestParam(name="brokerName", required=true) String brokerName) {
+		List<CSHistory> csTrackHist = csService.csDetailsStatusList(status, reference_number, brokerName);
 		return csTrackHist;
 	}
 
