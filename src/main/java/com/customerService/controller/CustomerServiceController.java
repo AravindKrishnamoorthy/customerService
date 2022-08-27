@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.customerService.entity.CSTracker;
+import com.customerService.entity.CSusers;
 import com.customerService.model.CSHistory;
 import com.customerService.model.CustomerTrackRequest;
 import com.customerService.model.UserMessage;
-import com.customerService.model.UsersData;
 import com.customerService.service.ICSSystemService;
 
 @RestController
@@ -28,8 +28,8 @@ public class CustomerServiceController {
 	private ICSSystemService csService;
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/login")
-	public List<UsersData> login(@RequestParam("userName") String userName, @RequestParam("passWord") String passWord) {
-		List<UsersData> userDetails = csService.login(userName, passWord);
+	public CSusers login(@RequestParam("userName") String userName, @RequestParam("passWord") String passWord) {
+		CSusers userDetails = csService.login(userName, passWord);
 		return userDetails;
     }
 	
@@ -44,7 +44,6 @@ public class CustomerServiceController {
 	
 	@RequestMapping( method = RequestMethod.POST, path = "/csStatus-update")
     public UserMessage csStatusUpdate( @RequestBody List<CustomerTrackRequest> orderDetailList){
-		System.out.println("Status Update Request");
 		UserMessage updatedMsg = csService.csStatusUpdate(orderDetailList);
 		return updatedMsg;
 	}

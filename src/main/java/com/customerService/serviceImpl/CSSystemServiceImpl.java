@@ -5,13 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.customerService.dao.ICSSystemDao;
 import com.customerService.entity.CSTracker;
-import com.customerService.entity.CSTracker_History;
-import com.customerService.entity.User;
+import com.customerService.entity.CSusers;
 import com.customerService.model.CSHistory;
 import com.customerService.model.CustomerTrackRequest;
-import com.customerService.model.UserDetails;
 import com.customerService.model.UserMessage;
-import com.customerService.model.UsersData;
 import com.customerService.service.ICSSystemService;
 
 @Service
@@ -21,24 +18,8 @@ public class CSSystemServiceImpl implements ICSSystemService{
 	private ICSSystemDao csDao;
 
 	@Override
-	public List<UsersData> login(String userName, String passWord) {
-		List<UsersData> userData = csDao.login(userName, passWord);
-//		UserDetails userDetails = new UserDetails();
-//		userDetails.setAddress(userData.getAddress());
-//		userDetails.setCompanyName(userData.getCompanyName());
-//		userDetails.setContactName(userData.getName());
-//		userDetails.setContactPhoneNumber(userData.getPhoneNumber());
-//		userDetails.setCountry(userData.getCountry());
-//		userDetails.setEmailAddress(userData.getEmail());
-//		userDetails.setPassword(userData.getPassword_value());
-//		userDetails.setPostCode(userData.getPostcode());
-//		userDetails.setState(userData.getState());
-//		userDetails.setSuburb(userData.getSuburb());
-//		userDetails.setUserName(userData.getUsername());
-//		userDetails.setRole_Id(userData.getRole_Id());
-//		userDetails.setUser_id(userData.getUser_Id());
-//		List<String> serviceTypeList = csDao.fetchServiceType(userDetails.getUser_id());
-//		userDetails.setServiceType(serviceTypeList);
+	public CSusers login(String userName, String passWord) {
+		CSusers userData = csDao.login(userName, passWord);
 		return userData;
 	}
 

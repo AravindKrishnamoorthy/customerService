@@ -2,14 +2,14 @@ package com.customerService.service;
 
 import java.util.List;
 import com.customerService.entity.CSTracker;
+import com.customerService.entity.CSusers;
 import com.customerService.model.CSHistory;
 import com.customerService.model.CustomerTrackRequest;
 import com.customerService.model.UserMessage;
-import com.customerService.model.UsersData;
 
 public interface ICSSystemService {
 	
-	public List<UsersData> login(String userName, String passWord);
+	public CSusers login(String userName, String passWord);
 
 	public List<CSTracker> csDetails(String status, String reference_number, String brokerName);
 

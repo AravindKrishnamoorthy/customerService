@@ -11,12 +11,13 @@ import org.springframework.stereotype.Repository;
 import com.customerService.dao.ICSSystemDao;
 import com.customerService.entity.CSTracker;
 import com.customerService.entity.CSTracker_History;
+import com.customerService.entity.CSusers;
 import com.customerService.model.CSHistory;
 import com.customerService.model.CustomerTrackRequest;
 import com.customerService.model.UserMessage;
-import com.customerService.model.UsersData;
 import com.customerService.repository.CSTrackerRepository;
 import com.customerService.repository.CSTracker_HistoryRepository;
+import com.customerService.repository.CSusersRepository;
 import com.customerService.repository.UserRepository;
 import com.customerService.repository.UserServiceRepository;
 
@@ -27,6 +28,9 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 	UserRepository userRepository;
 	
 	@Autowired
+	CSusersRepository cSusersRepository;
+	
+	@Autowired
 	UserServiceRepository userServiceRepository;
 	
 	@Autowired
@@ -35,11 +39,9 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 	@Autowired
 	CSTracker_HistoryRepository csTrackerHistoryRepository;
 	
-	public List<UsersData> login(String userName, String passWord) {
-		List<UsersData> userData = new ArrayList<UsersData>();
-		List<Object[]>  userDaetils = userRepository.fetchUserDetails(userName, passWord);
-		userDaetils.forEach(obj -> userData.add(new UsersData(obj)));
-		return userData;
+	public CSusers login(String userName, String passWord) {
+		CSusers userDaetils = cSusersRepository.fetchUserDetails(userName, passWord);
+		return userDaetils;
 	}
 
 	@Override
@@ -70,7 +72,6 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 				csTrack.setArticleID(csTracker.getArticleID());
 				csTrack.setAirwayBill(csTracker.getAirwayBill());
 				csTrack.setUser_Id(csTracker.getUser_Id());
-//				csTrack.setBroker_Name(userDaetils.getClient_BrokerName());
 				csTrack.setBroker_Name(csTracker.getBroker_Name());
 				csTrack.setService_Type(csTracker.getService_Type());
 				csTrack.setCarrier(csTracker.getCarrier());
@@ -104,7 +105,6 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 				csTrack.setArticleID(csTracker.getArticleID());
 				csTrack.setAirwayBill(csTracker.getAirwayBill());
 				csTrack.setUser_Id(csTracker.getUser_Id());
-//				csTrack.setBroker_Name(userDaetils.getClient_BrokerName());
 				csTrack.setBroker_Name(csTracker.getBroker_Name());
 				csTrack.setService_Type(csTracker.getService_Type());
 				csTrack.setCarrier(csTracker.getCarrier());
