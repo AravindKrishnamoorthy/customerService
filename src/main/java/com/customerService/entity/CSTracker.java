@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="CSTracker")
@@ -89,6 +90,12 @@ public class CSTracker implements Serializable{
 	
 	@Column(name="Created_Timestamp")
 	private String created_Timestamp;
+	
+	@Transient
+	private String eta;
+	
+	@Column(name="PostZone")
+	private String postZone;
 	
 	public int getRowId() {
 		return rowId;
@@ -285,8 +292,21 @@ public class CSTracker implements Serializable{
 	public void setSchedulerTimestamp(String schedulerTimestamp) {
 		this.schedulerTimestamp = schedulerTimestamp;
 	}
+
+	public String getEta() {
+		return eta;
+	}
+
+	public void setEta(String eta) {
+		this.eta = eta;
+	}
+
+	public String getPostZone() {
+		return postZone;
+	}
+
+	public void setPostZone(String postZone) {
+		this.postZone = postZone;
+	}
 	
 }
-
-
-
