@@ -56,6 +56,9 @@ public class CSTracker_History implements Serializable{
 	
 	@Column(name="Created_Timestamp")
 	private String created_Timestamp;
+	
+	@Column(name="SystemStatus")
+	private String systemStatus;
 
 	public int getRowId() {
 		return rowId;
@@ -163,6 +166,14 @@ public class CSTracker_History implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getSystemStatus() {
+		return systemStatus;
+	}
+
+	public void setSystemStatus(String systemStatus) {
+		this.systemStatus = systemStatus;
 	}
 	
 }

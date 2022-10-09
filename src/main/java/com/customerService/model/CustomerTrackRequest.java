@@ -9,13 +9,16 @@ public class CustomerTrackRequest {
 	private String barcodelabelNumber;
 	private String broker_Name;
 	private String carrier;
-	private String status;
+	private String systemStatus;
 	private String created_Timestamp;
 	private String service_type;
 	private String user_id;
 	private String handling;
 	private String comments;
 	private String status_Timestamp;
+	private Boolean statusUpdateFlag;
+	private Boolean handlingUpdateFlag;
+	private Boolean commentsUpdateFlag;
 	
 	public String getAction() {
 		return action;
@@ -59,12 +62,6 @@ public class CustomerTrackRequest {
 	public void setCarrier(String carrier) {
 		this.carrier = carrier;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	public String getCreated_Timestamp() {
 		return created_Timestamp;
 	}
@@ -100,6 +97,30 @@ public class CustomerTrackRequest {
 	}
 	public void setStatus_Timestamp(String status_Timestamp) {
 		this.status_Timestamp = status_Timestamp;
+	}
+	public String getSystemStatus() {
+		return systemStatus;
+	}
+	public void setSystemStatus(String systemStatus) {
+		this.systemStatus = systemStatus;
+	}
+	public Boolean getStatusUpdateFlag() {
+		return statusUpdateFlag;
+	}
+	public void setStatusUpdateFlag(Boolean statusUpdateFlag) {
+		this.statusUpdateFlag = statusUpdateFlag;
+	}
+	public Boolean getHandlingUpdateFlag() {
+		return handlingUpdateFlag;
+	}
+	public void setHandlingUpdateFlag(Boolean handlingUpdateFlag) {
+		this.handlingUpdateFlag = handlingUpdateFlag;
+	}
+	public Boolean getCommentsUpdateFlag() {
+		return commentsUpdateFlag;
+	}
+	public void setCommentsUpdateFlag(Boolean commentsUpdateFlag) {
+		this.commentsUpdateFlag = commentsUpdateFlag;
 	}
 	
 }

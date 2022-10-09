@@ -214,15 +214,29 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 			CSTracker_History csHistObj = new CSTracker_History();
 			csHistObj.setReference_number(orderDetailHist.getReference_number());
 			csHistObj.setArticleID(orderDetailHist.getArticleID());
-			csHistObj.setStatus(orderDetailHist.getAction());
+			
+			if(orderDetailHist.getStatusUpdateFlag()) {
+				csHistObj.setStatus("Moved");
+				csHistObj.setSystemStatus(orderDetailHist.getAction());
+			}else if(orderDetailHist.getCommentsUpdateFlag() || orderDetailHist.getHandlingUpdateFlag()) {
+				csHistObj.setStatus(orderDetailHist.getSystemStatus());
+				csHistObj.setSystemStatus(orderDetailHist.getSystemStatus());
+			}
+			
+			if(orderDetailHist.getStatusUpdateFlag()) {
+				csHistObj.setCourierEvents("Moved from "+ orderDetailHist.getSystemStatus() + " to "+ orderDetailHist.getAction());
+			}else if(orderDetailHist.getCommentsUpdateFlag()) {
+				csHistObj.setCourierEvents("Comments Added");
+			}else if(orderDetailHist.getHandlingUpdateFlag()) {
+				csHistObj.setCourierEvents("Handling changed");
+			}
 			csHistObj.setStatusCode(null);
 			csHistObj.setStatus_Timestamp(orderDetailHist.getStatus_Timestamp());
-			csHistObj.setCourierEvents("Comments Added");
 			csHistObj.setUpdated_Timestamp(sdf.format(new Date()));
 			csHistObj.setLocation(null);
 			csHistObj.setHandling(orderDetailHist.getHandling());
 			csHistObj.setComments(orderDetailHist.getComments());
-			csHistObj.setIsUpdated(null);
+			csHistObj.setIsUpdated("Y");
 			csHistObj.setCreated_Timestamp(orderDetailHist.getCreated_Timestamp());
 			csHistList.add(csHistObj);
 		}
