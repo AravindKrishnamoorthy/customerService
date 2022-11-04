@@ -275,10 +275,15 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 		fdmMap.put("CAL",4);
 		fdmMap.put("D2Z",2);
 		fdmMap.put("FAST VIC",3);
+		fdmMap.put("FastwayM",3);
 		fdmMap.put("GPC",4);
 		fdmMap.put("MLD",4);
 		fdmMap.put("PFL",2);
+		fdmMap.put("NEX",2);
+		fdmMap.put("NEXFastway",2);
 		fdmMap.put("POST",6);
+		fdmMap.put("eParcel",6);
+		fdmMap.put("eParcelPOBOX",6);
 		fdmMap.put("RPD",2);
 		fdmMap.put("SEN",4);
 		fdmMap.put("SWH",4);

@@ -13,7 +13,7 @@ public interface CSTracker_HistoryRepository extends CrudRepository<CSTracker_Hi
 	
 	@Query(nativeQuery = true, value= "SELECT DISTINCT reference_number, articleID, status, status_Timestamp, " +
 			" Updated_Timestamp, location, handling, comments, created_Timestamp, null as broker_Name, null as dateAllocated, null as carrier,"
-			+ "null as systemStatus FROM CSTracker_History t where t.reference_number = :reference_number order by t.Updated_Timestamp desc ")
+			+ "null as systemStatus FROM CSTracker_History t where t.status <> 'Moved' and t.reference_number = :reference_number order by t.status_Timestamp desc ")
 	List<Object[]> fetchCSTrackHistoryDetails(@Param("reference_number") String reference_number);
 
 
