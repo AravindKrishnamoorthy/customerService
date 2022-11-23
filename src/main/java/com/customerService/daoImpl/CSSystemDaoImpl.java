@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.customerService.dao.ICSSystemDao;
@@ -231,7 +233,9 @@ public class CSSystemDaoImpl implements ICSSystemDao{
 				csHistObj.setCourierEvents("Handling changed");
 			}
 			csHistObj.setStatusCode(null);
-			csHistObj.setStatus_Timestamp(orderDetailHist.getStatus_Timestamp());
+			csHistObj.setStatus_Timestamp(StringUtils.isNotBlank(orderDetailHist.getStatus_Timestamp())
+					? orderDetailHist.getStatus_Timestamp()
+					: sdf.format(new Date()));
 			csHistObj.setUpdated_Timestamp(sdf.format(new Date()));
 			csHistObj.setLocation(null);
 			csHistObj.setHandling(orderDetailHist.getHandling());
